@@ -1,0 +1,49 @@
+= EasyPay
+
+EasyPay is a payment system which concentrates and accepts payments from different Point of Sales for a given merchant.
+
+Payment requests are received via a RESTFul API and are checked in the following way:
+
+- Is the Point of Sale defined and active?
+- Is the PAN (card number) valid?
+- Does the PAN belong to a well-known card scheme?
+- Is the card expired?
+- Is the card black-listed?
+
+
+If local checks are OK, the payment is accepted below a certain limit. Beyond this limit, an authorization request is sent to the Acquirer Bank, with a fallback mechanism in case of problem.
+
+== Endpoints
+
+With Payara Server, the application is deployed on port 8080.
+
+The main endpoints are:
+
+- **/health**: get MicropProfile HealtCheck informations,
+- **/openapi**: description of the RestFul API, todo: how to display it nicely with Swagger UI?
+- **/easystore/health-ui**: get MicropProfile HealthCheck informations displayed in a nice way thanks to extension for MicroProfile,
+- **/easystore/api/pos**: retrieve all pos,
+- **/easystore/api/cards**: retrieve all cards,
+- **/easystore/api/payments**: retrieve all payements,
+- **/easystore/api/payments/count**: retrieve the count of payements.
+
+== Configuration
+
+The configuration makes use of MicroProfile config. 
+There is currently one single source in /META-INF/microprofile-config.properties with the following content:
+
+- **payment.author.threshold**: the local acceptance threshold. If the amount is greater than this value, an authorization must be requested from the bank,
+- **payment.author.merchantId**: the merchant identifier to be presented to the bank,
+- **payment.max.amount.fallback**: the local acceptance fallback if the bank cannot be reached. Below this value, if the bank is unreachable, the payment is accepted. Up to this value, it is accepted,
+- **org.sebjef.easypay.control.bank.BankAuthorClient/mp-rest/url**: the URL to connect to the bank,
+- **datasource.probe.request**: the database request used by MicroProfile HealthCheck.
+
+== References
+
+https://www.freeformatter.com/credit-card-number-generator-validator.html
+https://creditcardjs.com/credit-card-type-detection
+https://hzhou.me/2014/08/13/java-get-credit-card-type-by-its-number/
+https://www.kodnito.com/posts/documenting-rest-api-using-microprofile-openapi-swagger-ui-payara-micro/
+https://medium.com/liferay-engineering-brazil/server-sent-events-with-jax-rs-a63ce1813d82
+https://github.com/kumuluz/kumuluzee-graphql
+https://blog.payara.fish/the-health-check-service-in-depth-payara-server

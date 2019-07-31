@@ -1,0 +1,81 @@
+# Merchant Back Office
+
+Merchant Back Office is a GraphQL API to expose payments in a flexible way.
+
+It is based on https://github.com/kumuluz/kumuluzee-graphql[KumuluzEE GraphQL].
+
+To start an application see https://github.com/kumuluz/KumuluzEE/wiki/Getting-started[KumuluzEE Getting Started]
+
+== KummuluzEE documentation
+
+. https://github.com/kumuluz/kumuluzee/wiki/EeConfig[KumuluzEE configuration]
+. https://github.com/kumuluz/kumuluzee/blob/master/core/src/main/java/com/kumuluz/ee/factories/EeConfigFactory.java)[EeConfigFactory code]
+
+== Running the application
+There are 2 ways to run the application depending on the package:
+
+- if UberJar (maven goal set to __repackage__): _java -jar target/merchantbo-1.0.jar_
+- if exploded (maven goal set to __copy-dependencies__): _java -cp target/classes;target/dependency/* com.kumuluz.ee.EeApplication_
+- with OpenJ9 shared classes: _java -Xshareclasses:name=kumuluzee -cp target/classes;target/dependency/* com.kumuluz.ee.EeApplication_
+
+== KumuluzEE configuration
+
+The main configuration file is **config.yaml**:
+
+. exposed port,
+. graphiql endpoint,
+. healtcheck,
+. datasources.
+
+== Endpoints
+
+The application is deployed on port 8081 (configured in config.yaml):
+
+. To do a healthcheck: http://localhost:8081/health
+. To run GraphiQL: http://localhost:8081/graphiql
+
+== Example of GraphQL queries
+
+To get all accepted payments, sorted by amount:
+[source,]
+----
+query allPayments {
+  allPayments(sort: {fields: [{field: "cardNumber", order: ASC}]}) {
+    id
+    cardNumber
+    cardType
+    responseCode
+    posId
+  }
+}
+----
+
+To track the activity for a given card:
+[source,]
+----
+query trackCard {
+  allPayments(filter: {fields: [{field: "cardNumber", value: "5174071733242036", op: EQ}]}) {
+    id
+    responseCode
+    amount
+    posId
+    posRef {
+      location
+    }
+  }
+}
+----
+
+To track the activity for a given point of sales:
+[source,]
+----
+ query trackPos {
+  allPayments(filter: {fields: [{field: "posId", value: "POS-01", op: EQ}]}) {
+    id
+    cardNumber
+    cardType
+    responseCode
+    amount
+  }
+}
+----

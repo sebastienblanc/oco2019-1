@@ -1,0 +1,34 @@
+kumuluzee:
+  name: Oracle Code Demo 2019
+  env:
+    name: oco-2019
+  server:
+      http:
+          port: 8081
+  graphql:
+    mapping: graphql
+    ui:
+      enabled: true
+    defaults:
+      offset: 0
+      limit: 20
+  datasources:
+    - jndi-name: jdbc/merchantbo
+      connection-url: jdbc:hsqldb:hsql://localhost/oco
+      username: sa
+      password: 
+      pool:
+        max-size: 5
+        connection-timeout: 2000
+  health:
+    servlet:
+      mapping: /health
+      enabled: true
+    logs:
+      enabled: false
+      level: INFO
+      period-s: 30
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/merchantbo
+      

@@ -1,0 +1,31 @@
+= SmartBank
+
+SmartBank represents the gateway to the Acquirer Bank (the bank of the Merchant). It is in charge of delivering authorisations by calling the network card-scheme. The objective is to check the solvability of the card owner (the person doing the payment).
+
+It is called by the WebShop beyond a certain amount through a RETSful API.
+
+For this demo, the processing is purposely made in a very basic way: 
+
+. below a configured amount: the authorization is delivered,
+. beyond it: the authorization is denied.
+
+== Endpoints
+
+With Payara Micro the exposed port is 8082
+
+The main endpoints are:
+
+- */health* : get MP healthcheck information,
+- */openapi* : get RestFul API documentation,
+- **/smartbank/api/authors**: to retrieve the list of authorizations,
+- **/smartbank/api/count**: to get the count of authorizations,
+- **/smartbank/api/{id}**: to retrieve a given authorization.
+
+== Configuration
+
+The configuration makes use of MicroProfile configuration. There is a single configuration datasource: META-INF/microprofile-config.properties.
+
+The following parameters are defined:
+
+- **author.max.amount**: the maximum authorized amount. Up to this value, the authorization is delivered. Beyond this value, it is refused,
+- **datasource.probe.request**: the database request used by MicroProfile HealthCheck.

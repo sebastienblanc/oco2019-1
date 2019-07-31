@@ -1,0 +1,34 @@
+= Demo for Oracle Code One 2019
+
+This project is a demo for Oracle Code One 2019.
+
+It simulates a simplified payment system based on 3 services:
+
+- **EasyStore**: a WebStore processing payment requests, run on port 8080
+- **SmartBank**: the Acquirer bank in charge of calling the card-scheme network when a certain amount is exceeded, run on port 8081
+- **Merchant Back Office**: where the merchant can vizualise its payments through a GraphQL API, run on port 8082.
+
+HSQLDB is used as database.
+
+The objective is to demonstrate MicroProfile in action based on a simplified, yet significative, use case.
+
+It is worth noting that this demo is by far not representative of a real payment system:
+
+- The payment processing is simplified,
+- There is no built-in security,
+- It is not at all PCI-DSS compliant.
+
+The purpose of this demo is just to run locally on a laptop during a talk and to demonstrate some technical aspects.
+
+The following MP specifications are illustrated:
+
+- Configuration,
+- Fault tolerance,
+- Health,
+- OpenAPI,
+- RestClient.
+
+Next steps:
+
+- OpenTracing,
+- Metrics.
