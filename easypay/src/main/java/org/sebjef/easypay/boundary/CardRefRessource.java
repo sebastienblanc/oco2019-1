@@ -16,6 +16,7 @@
 package org.sebjef.easypay.boundary;
 
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +25,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.sebjef.easypay.entity.CardRef;
 
@@ -34,19 +34,15 @@ import org.sebjef.easypay.entity.CardRef;
  * @author JF James
  */
 @Path("cards")
-@Log
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RequestScoped // Required with Payara to enable CDI injection
+@ApplicationScoped // Required with Payara to enable CDI injection
 public class CardRefRessource {
-    
-    @PersistenceContext(unitName = "easypay")
-    private EntityManager em;
     
     @GET
     @Operation(operationId = "Find all cards declared in the system")
     public List<CardRef> findAll() {
-        return em.createNamedQuery("CardRef.findAll", CardRef.class).getResultList();
+        return CardRef.listAll();
     }
     
 }

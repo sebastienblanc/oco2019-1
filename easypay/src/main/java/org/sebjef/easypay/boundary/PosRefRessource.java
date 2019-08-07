@@ -24,7 +24,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.sebjef.easypay.entity.PosRef;
 
@@ -34,19 +33,17 @@ import org.sebjef.easypay.entity.PosRef;
  * @author JF James
  */
 @Path("pos")
-@Log
+
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped // Required with Payara to enable CDI injection
 public class PosRefRessource {
-    
-    @PersistenceContext(unitName="easypay")
-    private EntityManager em;
+
     
     @GET
     @Operation(operationId = "Find all Point of Sales declared in the system")
     public List<PosRef> findAll() {
-        return em.createNamedQuery("PosRef.findAll", PosRef.class).getResultList();
+        return PosRef.listAll();
     }
     
 }

@@ -15,38 +15,22 @@
  */
 package org.sebjef.easypay.entity;
 
-import java.io.Serializable;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  *
  * @author JF James
  */
 @Entity
-@Data
-@NoArgsConstructor
-@NamedQuery(
-        name = "CardRef.isBlackListed",
-        query = "SELECT COUNT(c) FROM CardRef c WHERE c.cardNumber= :cardNumber AND c.blackListed = TRUE"
-)
-@NamedQuery(
-        name = "CardRef.findAll",
-        query = "SELECT c FROM CardRef c"
-)
-public class CardRef implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CardRef extends PanacheEntity {
+
 
     @Column(unique = true)
     private String cardNumber;
@@ -56,4 +40,35 @@ public class CardRef implements Serializable {
 
     private boolean blackListed;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    public boolean isBlackListed() {
+        return blackListed;
+    }
+
+    public void setBlackListed(boolean blackListed) {
+        this.blackListed = blackListed;
+    }
 }

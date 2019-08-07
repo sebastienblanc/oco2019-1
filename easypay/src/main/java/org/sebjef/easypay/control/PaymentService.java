@@ -19,11 +19,8 @@ package org.sebjef.easypay.control;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import static javax.transaction.Transactional.TxType.REQUIRED;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.sebjef.easypay.control.bank.BankAuthorService;
 import org.sebjef.easypay.entity.Payment;
@@ -36,7 +33,6 @@ import org.sebjef.easypay.entity.CardType;
  * @author JF James
  */
 @ApplicationScoped
-@Log
 public class PaymentService {
 
 
@@ -48,9 +44,6 @@ public class PaymentService {
 
     @Inject
     private BankAuthorService bankAuthorService;
-
-    @PersistenceContext(unitName = "easypay")
-    private EntityManager em;
 
     @Inject
     @ConfigProperty(name = "payment.author.threshold", defaultValue = "10000")
@@ -90,6 +83,7 @@ public class PaymentService {
 
     }
 
+
     private void store(PaymentProcessingContext context) {
         Payment payment = new Payment();
 
@@ -109,28 +103,27 @@ public class PaymentService {
             payment.setAuthorId(context.getAuthorId().get());
         }
 
-        em.persist(payment);
-        em.flush(); // Flush is required to get the id
+        Payment.persist(payment);
 
         context.setId(payment.getId());
     }
 
     // @Transactional is only effective on externally called methods with Parayra 5.191
-    @Transactional(REQUIRED)
+    @Transactional
     public void accept(PaymentProcessingContext paymentContext) {
         process(paymentContext);
         store(paymentContext);
     }
 
     public Payment findById(long id) {
-        return em.find(Payment.class, id);
+        return Payment.findById(id);
     }
 
     public List<Payment> findAll() {
-        return em.createNamedQuery("Payment.findAll", Payment.class).getResultList();
+        return Payment.listAll();
     }
 
     public long count() {
-        return em.createNamedQuery("Payment.count", Long.class).getSingleResult();
+        return Payment.count();
     }
 }

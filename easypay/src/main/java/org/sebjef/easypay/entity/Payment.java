@@ -15,38 +15,23 @@
  */
 package org.sebjef.easypay.entity;
 
-import java.io.Serializable;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+
+
 
 /**
  *
  * @author JF James
  */
 @Entity
-@NoArgsConstructor
-@Data
-@NamedQuery(
-        name = "Payment.findAll",
-        query = "SELECT p FROM Payment p"
-)
-@NamedQuery(
-        name = "Payment.count",
-        query = "SELECT COUNT(p) FROM Payment p"
-)
-public class Payment implements Serializable {
+public class Payment extends PanacheEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private LocalDateTime dateTime;
     
@@ -70,4 +55,107 @@ public class Payment implements Serializable {
     private boolean authorized;
     private Long authorId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public long getReponseTime() {
+        return reponseTime;
+    }
+
+    public void setReponseTime(long reponseTime) {
+        this.reponseTime = reponseTime;
+    }
+
+    public String getPosId() {
+        return posId;
+    }
+
+    public void setPosId(String posId) {
+        this.posId = posId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    public PaymentResponseCode getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(PaymentResponseCode responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public ProcessingMode getProcessingMode() {
+        return processingMode;
+    }
+
+    public void setProcessingMode(ProcessingMode processingMode) {
+        this.processingMode = processingMode;
+    }
+
+    public boolean isBankCalled() {
+        return bankCalled;
+    }
+
+    public void setBankCalled(boolean bankCalled) {
+        this.bankCalled = bankCalled;
+    }
+
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
 }

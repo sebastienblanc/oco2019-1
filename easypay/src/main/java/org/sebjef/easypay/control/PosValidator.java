@@ -18,9 +18,6 @@ package org.sebjef.easypay.control;
 import java.util.List;
 import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import lombok.extern.java.Log;
 import org.sebjef.easypay.entity.PosRef;
 
 /**
@@ -28,24 +25,21 @@ import org.sebjef.easypay.entity.PosRef;
  * @author JF James
  */
 @ApplicationScoped
-@Log
 public class PosValidator {
 
-    @PersistenceContext(unitName = "easypay")
-    private EntityManager em;
 
     public boolean isActive(String posId) {
 
-        List<PosRef> posList = em.createNamedQuery("PosRef.findByPosId", PosRef.class).setParameter("posId", posId).getResultList();
+        List<PosRef> posList = PosRef.findByPosID(posId);
         if (posList.isEmpty()) {
-            log.log(Level.WARNING, "checkPosStatus NOK, unknown posId {0}", posId);
+            //log.log(Level.WARNING, "checkPosStatus NOK, unknown posId {0}", posId);
             return false;
         }
 
         boolean result = posList.get(0).isActive();
 
         if (!result) {
-            log.log(Level.WARNING, "checkPosStatus NOK, inactive posId {0}", posId);
+            //log.log(Level.WARNING, "checkPosStatus NOK, inactive posId {0}", posId);
         }
 
         return result;

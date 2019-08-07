@@ -17,7 +17,6 @@ package org.sebjef.easypay.health;
 
 import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -29,7 +28,6 @@ import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
  */
 @ApplicationScoped
 @Health
-@Log
 public class PidProbe implements HealthCheck {
 
     @Override
@@ -38,10 +36,10 @@ public class PidProbe implements HealthCheck {
         long pid = -1;
 
         try {
-            pid = ProcessHandle.current().pid();
+            pid = 999;
         } catch (NoClassDefFoundError ex) {
             // NoClasdDefFoundError if Java 8
-            log.log(Level.WARNING, "PidProbe NOK {0}", ex.getMessage());
+            //log.log(Level.WARNING, "PidProbe NOK {0}", ex.getMessage());
         }
 
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse.named("pid-probe")

@@ -19,7 +19,6 @@ import org.sebjef.easypay.entity.PaymentResponseCode;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.sebjef.easypay.entity.ProcessingMode;
-import lombok.Data;
 import org.sebjef.easypay.boundary.PaymentRequest;
 import org.sebjef.easypay.boundary.PaymentResponse;
 import org.sebjef.easypay.entity.CardType;
@@ -28,7 +27,6 @@ import org.sebjef.easypay.entity.CardType;
  *
  * @author JF James
  */
-@Data
 public class PaymentProcessingContext {
 
     // Data coming from the request
@@ -87,4 +85,91 @@ public class PaymentProcessingContext {
         return response;
     }
 
+    public String getPosId() {
+        return posId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public PaymentResponseCode getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(PaymentResponseCode responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    public ProcessingMode getProcessingMode() {
+        return processingMode;
+    }
+
+    public void setProcessingMode(ProcessingMode processingMode) {
+        this.processingMode = processingMode;
+    }
+
+    public long getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(long responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public boolean isBankCalled() {
+        return bankCalled;
+    }
+
+    public void setBankCalled(boolean bankCalled) {
+        this.bankCalled = bankCalled;
+    }
+
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
+    }
+
+    public Optional<Long> getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Optional<Long> authorId) {
+        this.authorId = authorId;
+    }
 }

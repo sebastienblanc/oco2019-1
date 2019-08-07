@@ -15,9 +15,9 @@
  */
 package org.sebjef.easypay.entity;
 
-import java.util.logging.Level;
+
 import java.util.regex.Pattern;
-import lombok.extern.java.Log;
+
 
 /**
  * From: 
@@ -26,7 +26,7 @@ import lombok.extern.java.Log;
  * 
  * @author JF James
  */
-@Log
+
 public enum CardType {
 
     UNKNOWN,
@@ -59,7 +59,7 @@ public enum CardType {
             }
         }
 
-        log.log(Level.WARNING, "card number {0} has an unknown card type", cardNumber);
+        //log.log(Level.WARNING, "card number {0} has an unknown card type", cardNumber);
         return UNKNOWN;
     }
 

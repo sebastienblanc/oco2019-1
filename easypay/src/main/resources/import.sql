@@ -1,0 +1,10 @@
+insert into posref(id, posId, location, active) values (nextval('hibernate_sequence'),'POS-01', 'Vallauris France', true);
+insert into posref(id, posId, location, active) values (nextval('hibernate_sequence'),'POS-02', 'Blois France', true);
+insert into posref(id, posId, location, active) values (nextval('hibernate_sequence'),'POS-03', 'Paris France', false);
+insert into posref(id, posId, location, active) values (nextval('hibernate_sequence'),'POS-04', 'San Francisco US', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'4485248221242242', 'VISA', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'5261749597812879', 'MASTERCARD', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'6011191990123805', 'DISCOVER', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'343506189778618', 'AMERICAN_EXPRESS', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'36031319313683', 'DINERS_CLUB', true);
+insert into cardref(id, cardNumber, cardType, blackListed) values (nextval('hibernate_sequence'),'6289193933258511', 'CHINA_UNION_PAY', true);

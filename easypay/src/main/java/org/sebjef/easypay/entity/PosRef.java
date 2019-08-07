@@ -15,35 +15,20 @@
  */
 package org.sebjef.easypay.entity;
 
-import java.io.Serializable;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+
 
 /**
  *
  * @author JF James
  */
 @Entity
-@Data
-@NoArgsConstructor
-@NamedQuery(
-        name = "PosRef.findByPosId",
-        query = "SELECT p FROM PosRef p WHERE p.posId = :posId"
-)
-@NamedQuery(
-        name = "PosRef.findAll",
-        query = "SELECT p FROM PosRef p"
-)
-public class PosRef implements Serializable {
+public class PosRef extends PanacheEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(unique = true)
     private String posId;
@@ -52,4 +37,39 @@ public class PosRef implements Serializable {
 
     private boolean active;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPosId() {
+        return posId;
+    }
+
+    public void setPosId(String posId) {
+        this.posId = posId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public static List<PosRef> findByPosID(String posID){
+        return list("posId", posID);
+    }
 }

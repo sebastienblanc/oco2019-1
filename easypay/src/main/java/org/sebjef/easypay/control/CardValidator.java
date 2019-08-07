@@ -15,15 +15,13 @@
  */
 package org.sebjef.easypay.control;
 
+import org.sebjef.easypay.entity.CardRef;
 import org.sebjef.easypay.entity.CardType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import lombok.extern.java.Log;
+
 
 /**
  * Defines all checks required for a Card
@@ -31,11 +29,7 @@ import lombok.extern.java.Log;
  * @author JF James
  */
 @ApplicationScoped
-@Log
 public class CardValidator {
-
-    @PersistenceContext(unitName = "easypay")
-    private EntityManager em;
 
     public boolean checkExpiryDate(String expiryDate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
@@ -44,12 +38,12 @@ public class CardValidator {
         try {
             expiry = simpleDateFormat.parse(expiryDate);
         } catch (ParseException ex) {
-            log.log(Level.WARNING, "checkExpiryDate NOK, unparsable value {0}, MM/yy format expected", expiryDate);
+            //log.log(Level.WARNING, "checkExpiryDate NOK, unparsable value {0}, MM/yy format expected", expiryDate);
             return false;
         }
 
         if (expiry.before(new Date())) {
-            log.log(Level.WARNING, "checkExpiryDate NOK, expired date {0}", expiryDate);
+            //log.log(Level.WARNING, "checkExpiryDate NOK, expired date {0}", expiryDate);
             return false;
         }
         return true;
@@ -75,7 +69,7 @@ public class CardValidator {
         }
 
         if (sum % 10 != 0) {
-            log.log(Level.WARNING, "checkLuhnKey NOK {0}", cardNumber);
+            //log.log(Level.WARNING, "checkLuhnKey NOK {0}", cardNumber);
             return false;
         }
 
@@ -83,9 +77,9 @@ public class CardValidator {
     }
 
     public boolean isBlackListed(String cardNumber) {
-        long count = em.createNamedQuery("CardRef.isBlackListed", Long.class).setParameter("cardNumber", cardNumber).getSingleResult();
-        if (count != 0) {
-            log.warning("cardNumber " + cardNumber + " is black listed");
+        CardRef cardRef = CardRef.find("cardNumber", cardNumber).firstResult();
+        if (cardRef.isBlackListed()) {
+            //log.warning("cardNumber " + cardNumber + " is black listed");
             return true;
         }
 

@@ -15,18 +15,47 @@
  */
 package org.sebjef.easypay.control.bank;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author JF James
  */
-@Data
-@NoArgsConstructor
+
 public class BankAuthorRequest {
     private String merchantId;
     private String cardNumber;
     private String expiryDate;
     private int amount;
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

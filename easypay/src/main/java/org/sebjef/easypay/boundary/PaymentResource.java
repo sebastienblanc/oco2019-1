@@ -17,8 +17,10 @@ package org.sebjef.easypay.boundary;
 
 import java.net.URI;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -31,9 +33,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -49,7 +51,7 @@ import org.sebjef.easypay.entity.Payment;
 @Path("payments")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RequestScoped // Required with Payara to enable CDI injection
+@ApplicationScoped
 public class PaymentResource {
 
     @Context
@@ -83,8 +85,8 @@ public class PaymentResource {
     @Operation(operationId = "Retrieve a given payment by its id")
     @APIResponses(
             value = {
-                @APIResponse(responseCode = "200", description = "Payment found", content = @Content(mediaType = "application/json")),
-                @APIResponse(responseCode = "204", description = "Payment not found", content = @Content(mediaType = "text/plain"))
+                @APIResponse(responseCode = "200", description = "Payment found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
+                @APIResponse(responseCode = "204", description = "Payment not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
             }
     )
     public Payment findById(@Parameter(description = "The payment id to be retrieved", required = true)
@@ -95,10 +97,11 @@ public class PaymentResource {
     @POST
     @APIResponses(
             value = {
-                @APIResponse(responseCode = "201", description = "Payment accepted", content = @Content(mediaType = "application/json"))
+                @APIResponse(responseCode = "201", description = "Payment accepted", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
             }
     )
     @Operation(operationId = "Accept (or deny) a payment")
+    @Transactional
     public Response addPayment(@Valid @NotNull PaymentRequest paymentRequest) {
 
         PaymentProcessingContext paymentContext = new PaymentProcessingContext(paymentRequest);

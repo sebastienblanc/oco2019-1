@@ -17,15 +17,13 @@ package org.sebjef.easypay.boundary;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  *
  * @author JF James
  */
-@Data
-@NoArgsConstructor
+
 public class PaymentRequest {
 
     @NotNull
@@ -39,4 +37,36 @@ public class PaymentRequest {
     
     @Min(10)
     private int amount;
+
+    public String getPosId() {
+        return posId;
+    }
+
+    public void setPosId(String posId) {
+        this.posId = posId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

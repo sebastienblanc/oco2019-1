@@ -16,10 +16,8 @@
 package org.sebjef.easypay.control.bank;
 
 import java.util.Optional;
-import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
@@ -32,7 +30,6 @@ import org.sebjef.easypay.entity.ProcessingMode;
  * @author JF James
  */
 @ApplicationScoped
-@Log
 public class BankAuthorService {
 
     @Inject
@@ -68,7 +65,7 @@ public class BankAuthorService {
             return context.isAuthorized();
         } catch (RuntimeException e) {
             // If empty endpoint ProcessingException: Error writing JSON-B serialized object
-            log.log(Level.WARNING, "BankAuthorService.authorize NOK {0}", e);
+            //log.log(Level.WARNING, "BankAuthorService.authorize NOK {0}", e);
             throw e;
         }
     }

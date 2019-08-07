@@ -15,15 +15,13 @@
  */
 package org.sebjef.easypay.control.bank;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  *
  * @author JF James
  */
-@Data
-@NoArgsConstructor
+
 public class BankAuthorResponse {
 
     // Data coming from the context
@@ -34,4 +32,44 @@ public class BankAuthorResponse {
     // Data coming from the authorization response
     private long authorId;
     private boolean authorized;
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
+    }
+
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
+    }
 }
