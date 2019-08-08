@@ -109,7 +109,7 @@ public class PaymentService {
     }
 
     // @Transactional is only effective on externally called methods with Parayra 5.191
-    @Transactional
+    @Transactional(REQUIRED)
     public void accept(PaymentProcessingContext paymentContext) {
         process(paymentContext);
         store(paymentContext);

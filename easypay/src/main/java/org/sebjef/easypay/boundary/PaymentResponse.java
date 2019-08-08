@@ -16,6 +16,8 @@
 package org.sebjef.easypay.boundary;
 
 import java.util.Optional;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.sebjef.easypay.entity.PaymentResponseCode;
 import org.sebjef.easypay.entity.CardType;
 import org.sebjef.easypay.entity.ProcessingMode;
@@ -25,6 +27,7 @@ import org.sebjef.easypay.entity.ProcessingMode;
  * @author JF James
  */
 
+@RegisterForReflection
 public class PaymentResponse {
 
     // Data coming from the request

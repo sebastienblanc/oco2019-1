@@ -101,7 +101,6 @@ public class PaymentResource {
             }
     )
     @Operation(operationId = "Accept (or deny) a payment")
-    @Transactional
     public Response addPayment(@Valid @NotNull PaymentRequest paymentRequest) {
 
         PaymentProcessingContext paymentContext = new PaymentProcessingContext(paymentRequest);
