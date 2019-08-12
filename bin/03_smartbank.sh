@@ -16,7 +16,7 @@ echo "Running SmartBank on port $PORT:"
 
 # -Xshareclasses:name=smartbank -Xquickstart -Xmx250m -Xms250m
 
-CMD="java --add-opens java.base/jdk.internal.loader=ALL-UNNAMED 
+CMD="/home/sblanc/jdk/jdk-11.0.4/bin/java --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
 -jar $PAYARA_MICRO_HOME/payara-micro-5.192.jar
 --noCluster --addJars $HSQLDB_HOME/lib/hsqldb.jar --port $PORT
 --deploy $SMARTBANK_WAR_FILE"
