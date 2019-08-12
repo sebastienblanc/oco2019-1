@@ -20,17 +20,18 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Readiness;
 
 /**
  *
  * @author jefrajames
  */
-@Health
+@Readiness
 @ApplicationScoped
 public class DataSourceProbe implements HealthCheck {
 
     @Inject
-    private PingDatasource pingDatabase;
+    PingDatasource pingDatabase;
 
     @Override
     public HealthCheckResponse call() {

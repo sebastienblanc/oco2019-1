@@ -19,16 +19,14 @@ import java.lang.management.ClassLoadingMXBean;
 import java.lang.management.ManagementFactory;
 import java.text.NumberFormat;
 import javax.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
+
+import org.eclipse.microprofile.health.*;
 
 /**
  *
  * @author jefrajames
  */
-@Health
+@Readiness
 @ApplicationScoped
 public class ClassProbe implements HealthCheck {
 

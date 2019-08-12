@@ -18,9 +18,7 @@ package org.sebjef.easypay.boundary;
 import java.net.URI;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -58,13 +56,21 @@ public class PaymentResource {
     private UriInfo uriInfo;
 
     @Inject
-    private PaymentService paymentService;
+    PaymentService paymentService;
 
     @GET
     @Path("/ping")
     @Operation(operationId = "Test the service accesibility")
     public String ping() {
         return "Enjoy SmartPay with Java EE 8 and MicroProfile 2.1 at Oracle Code One 2019!";
+    }
+
+    @GET
+    @Path("/devmode")
+    @Operation(operationId = "Test the devmode")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String devmode() {
+        return "Dev mode is awesome!";
     }
 
     @GET

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
 import org.sebjef.easypay.entity.PosRef;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,19 +29,20 @@ import org.sebjef.easypay.entity.PosRef;
 @ApplicationScoped
 public class PosValidator {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CardValidator.class);
 
     public boolean isActive(String posId) {
 
         List<PosRef> posList = PosRef.findByPosID(posId);
         if (posList.isEmpty()) {
-            //log.log(Level.WARNING, "checkPosStatus NOK, unknown posId {0}", posId);
+            LOGGER.warn("checkPosStatus NOK, unknown posId {0}", posId);
             return false;
         }
 
         boolean result = posList.get(0).isActive();
 
         if (!result) {
-            //log.log(Level.WARNING, "checkPosStatus NOK, inactive posId {0}", posId);
+           LOGGER.warn("checkPosStatus NOK, inactive posId {0}", posId);
         }
 
         return result;

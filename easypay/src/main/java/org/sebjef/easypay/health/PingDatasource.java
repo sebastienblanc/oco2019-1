@@ -19,7 +19,6 @@ package org.sebjef.easypay.health;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
@@ -28,16 +27,17 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  */
 @Singleton
 public class PingDatasource {
-//todo chech health check
 
-    
+    @Inject
+    EntityManager em;
+
     @Inject
     @ConfigProperty(name = "datasource.probe.request", defaultValue="SELECT 1 FROM DUAL")
-    private String databaseRequest;
+    String databaseRequest;
 
     public boolean check() {
         try {
-           // em.createNativeQuery(databaseRequest).getSingleResult();
+           em.createNativeQuery(databaseRequest).getSingleResult();
             return true;
         } catch (Exception e) {
             return false;

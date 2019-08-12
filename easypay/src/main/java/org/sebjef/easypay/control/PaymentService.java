@@ -37,17 +37,17 @@ public class PaymentService {
 
 
     @Inject
-    private CardValidator cardValidator;
+    CardValidator cardValidator;
 
     @Inject
-    private PosValidator posValidator;
+    PosValidator posValidator;
 
     @Inject
-    private BankAuthorService bankAuthorService;
+    BankAuthorService bankAuthorService;
 
     @Inject
     @ConfigProperty(name = "payment.author.threshold", defaultValue = "10000")
-    private int authorThreshold;
+    int authorThreshold;
 
 
     private void process(PaymentProcessingContext context) {        

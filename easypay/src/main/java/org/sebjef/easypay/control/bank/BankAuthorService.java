@@ -34,15 +34,15 @@ public class BankAuthorService {
 
     @Inject
     @ConfigProperty(name = "payment.author.merchantId", defaultValue = "Devoxx Store")
-    private String merchantId;
+    String merchantId;
 
     @Inject
     @ConfigProperty(name = "payment.max.amount.fallback", defaultValue = "20000")
-    private int maxAmountFallBack;
+    int maxAmountFallBack;
 
     @Inject
     @RestClient
-    private BankAuthorClient bankAuthorClient;
+    BankAuthorClient bankAuthorClient;
 
     private BankAuthorRequest initRequest(PaymentProcessingContext context) {
         BankAuthorRequest request = new BankAuthorRequest();

@@ -18,16 +18,14 @@ package org.sebjef.easypay.health;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import javax.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
+
+import org.eclipse.microprofile.health.*;
 
 /**
  *
  * @author jefrajames
  */
-@Health
+@Readiness
 @ApplicationScoped
 public class ThreadProbe implements HealthCheck {
 

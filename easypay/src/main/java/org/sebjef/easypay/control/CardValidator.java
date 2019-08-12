@@ -15,8 +15,12 @@
  */
 package org.sebjef.easypay.control;
 
+
 import org.sebjef.easypay.entity.CardRef;
 import org.sebjef.easypay.entity.CardType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +35,8 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class CardValidator {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CardValidator.class);
+
     public boolean checkExpiryDate(String expiryDate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
         simpleDateFormat.setLenient(false);
@@ -38,12 +44,12 @@ public class CardValidator {
         try {
             expiry = simpleDateFormat.parse(expiryDate);
         } catch (ParseException ex) {
-            //log.log(Level.WARNING, "checkExpiryDate NOK, unparsable value {0}, MM/yy format expected", expiryDate);
+            LOGGER.warn("checkExpiryDate NOK, unparsable value {0}, MM/yy format expected", expiryDate);
             return false;
         }
 
         if (expiry.before(new Date())) {
-            //log.log(Level.WARNING, "checkExpiryDate NOK, expired date {0}", expiryDate);
+            LOGGER.warn("checkExpiryDate NOK, expired date {0}", expiryDate);
             return false;
         }
         return true;
@@ -69,7 +75,7 @@ public class CardValidator {
         }
 
         if (sum % 10 != 0) {
-            //log.log(Level.WARNING, "checkLuhnKey NOK {0}", cardNumber);
+            LOGGER.warn("checkLuhnKey NOK {0}", cardNumber);
             return false;
         }
 
@@ -78,8 +84,8 @@ public class CardValidator {
 
     public boolean isBlackListed(String cardNumber) {
         CardRef cardRef = CardRef.find("cardNumber", cardNumber).firstResult();
-        if (cardRef.isBlackListed()) {
-            //log.warning("cardNumber " + cardNumber + " is black listed");
+        if (cardRef != null && cardRef.isBlackListed()) {
+            LOGGER.warn("cardNumber " + cardNumber + " is black listed");
             return true;
         }
 
