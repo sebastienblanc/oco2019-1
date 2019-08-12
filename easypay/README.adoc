@@ -15,13 +15,12 @@ If local checks are OK, the payment is accepted below a certain limit. Beyond th
 
 == Endpoints
 
-With Payara Server, the application is deployed on port 8080.
+The application is deployed on port 8080.
 
 The main endpoints are:
 
 - **/health**: get MicropProfile HealtCheck informations,
-- **/openapi**: description of the RestFul API, todo: how to display it nicely with Swagger UI?
-- **/easystore/health-ui**: get MicropProfile HealthCheck informations displayed in a nice way thanks to extension for MicroProfile,
+- **/swagger-ui**: description of the RestFul API
 - **/easystore/api/pos**: retrieve all pos,
 - **/easystore/api/cards**: retrieve all cards,
 - **/easystore/api/payments**: retrieve all payements,
@@ -30,13 +29,22 @@ The main endpoints are:
 == Configuration
 
 The configuration makes use of MicroProfile config. 
-There is currently one single source in /META-INF/microprofile-config.properties with the following content:
+There is currently one single source in resources/application.properties with the following content:
 
 - **payment.author.threshold**: the local acceptance threshold. If the amount is greater than this value, an authorization must be requested from the bank,
 - **payment.author.merchantId**: the merchant identifier to be presented to the bank,
 - **payment.max.amount.fallback**: the local acceptance fallback if the bank cannot be reached. Below this value, if the bank is unreachable, the payment is accepted. Up to this value, it is accepted,
 - **org.sebjef.easypay.control.bank.BankAuthorClient/mp-rest/url**: the URL to connect to the bank,
 - **datasource.probe.request**: the database request used by MicroProfile HealthCheck.
+
+== Quarkus Migration feedback
+
+- Replaced `MicroProfile` dependencies with the `quarkus microprofile` extensions
+- Added the `quarkus` maven plugin
+- Moved configuration to `resources/application.properties`
+- Introduced `Hibernate Panache` (optional)
+- Removed `lombock` dependency and related code
+- Downgraded to Java 8 for Native support : had to remove some health check using Java 11 features
 
 == References
 
@@ -47,3 +55,4 @@ https://www.kodnito.com/posts/documenting-rest-api-using-microprofile-openapi-sw
 https://medium.com/liferay-engineering-brazil/server-sent-events-with-jax-rs-a63ce1813d82
 https://github.com/kumuluz/kumuluzee-graphql
 https://blog.payara.fish/the-health-check-service-in-depth-payara-server
+https://quarkus.io
