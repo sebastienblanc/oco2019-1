@@ -42,6 +42,7 @@ There is currently one single source in resources/application.properties with th
 - Replaced `MicroProfile` dependencies with the `quarkus microprofile` extensions
 - Added the `quarkus` maven plugin
 - Moved configuration to `resources/application.properties`
+- Annotated `PaymentResponse` with `@RegisterForReflection`
 - Introduced `Hibernate Panache` (optional)
 - Removed `lombock` dependency and related code
 - Downgraded to Java 8 for Native support : had to remove some health check using Java 11 features
